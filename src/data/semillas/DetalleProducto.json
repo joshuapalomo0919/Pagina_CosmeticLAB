@@ -1,0 +1,222 @@
+[
+  {
+    "id_detalle_producto": 1,
+    "id_producto": 1,
+    "costo": 28000,
+    "precio_venta": 45000,
+    "stock": 42,
+    "stock_minimo": 10,
+    "imagen": "/assets/products/the_ordinary_ha.jpg",
+    "fecha_ini": "2026-01-10 09:15:00",
+    "fecha_fin": null
+  },
+  {
+    "id_detalle_producto": 2,
+    "id_producto": 2,
+    "costo": 38500,
+    "precio_venta": 62900,
+    "stock": 30,
+    "stock_minimo": 8,
+    "imagen": "/assets/products/maybelline_superstay.jpg",
+    "fecha_ini": "2026-01-12 11:30:00",
+    "fecha_fin": null
+  },
+  {
+    "id_detalle_producto": 3,
+    "id_producto": 3,
+    "costo": 65000,
+    "precio_venta": 98500,
+    "stock": 18,
+    "stock_minimo": 5,
+    "imagen": "/assets/products/laroche_uvmune.jpg",
+    "fecha_ini": "2026-01-15 14:20:00",
+    "fecha_fin": null
+  },
+  {
+    "id_detalle_producto": 4,
+    "id_producto": 4,
+    "costo": 58000,
+    "precio_venta": 89000,
+    "stock": 25,
+    "stock_minimo": 6,
+    "imagen": "/assets/products/cerave_crema_454g.jpg",
+    "fecha_ini": "2026-01-18 16:45:00",
+    "fecha_fin": null
+  },
+  {
+    "id_detalle_producto": 5,
+    "id_producto": 5,
+    "costo": 29000,
+    "precio_venta": 48900,
+    "stock": 60,
+    "stock_minimo": 15,
+    "imagen": "/assets/products/sky_high_mascara.jpg",
+    "fecha_ini": "2026-01-20 10:00:00",
+    "fecha_fin": null
+  },
+  {
+    "id_detalle_producto": 6,
+    "id_producto": 6,
+    "costo": 21500,
+    "precio_venta": 36500,
+    "stock": 50,
+    "stock_minimo": 12,
+    "imagen": "/assets/products/garnier_micelar.jpg",
+    "fecha_ini": "2026-01-22 08:30:00",
+    "fecha_fin": null
+  },
+  {
+    "id_detalle_producto": 7,
+    "id_producto": 7,
+    "costo": 68000,
+    "precio_venta": 105000,
+    "stock": 15,
+    "stock_minimo": 5,
+    "imagen": "/assets/products/mac_velvet_teddy.jpg",
+    "fecha_ini": "2026-02-01 12:10:00",
+    "fecha_fin": null
+  },
+  {
+    "id_detalle_producto": 8,
+    "id_producto": 8,
+    "costo": 52000,
+    "precio_venta": 82000,
+    "stock": 35,
+    "stock_minimo": 8,
+    "imagen": "/assets/products/cerave_foaming.jpg",
+    "fecha_ini": "2026-02-05 15:00:00",
+    "fecha_fin": null
+  },
+  {
+    "id_detalle_producto": 9,
+    "id_producto": 9,
+    "costo": 75000,
+    "precio_venta": 112000,
+    "stock": 22,
+    "stock_minimo": 6,
+    "imagen": "/assets/products/isdin_fusion_water.jpg",
+    "fecha_ini": "2026-02-10 09:40:00",
+    "fecha_fin": null
+  },
+  {
+    "id_detalle_producto": 10,
+    "id_producto": 10,
+    "costo": 26000,
+    "precio_venta": 42000,
+    "stock": 4,
+    "stock_minimo": 10,
+    "imagen": "/assets/products/the_ordinary_niacinamide.jpg",
+    "fecha_ini": "2026-02-12 17:15:00",
+    "fecha_fin": null
+  },
+  {
+    "id_detalle_producto": 11,
+    "id_producto": 11,
+    "costo": 42000,
+    "precio_venta": 68000,
+    "stock": 28,
+    "stock_minimo": 8,
+    "imagen": "/assets/products/neutrogena_hydroboost.jpg",
+    "fecha_ini": "2026-02-18 11:25:00",
+    "fecha_fin": null
+  },
+  {
+    "id_detalle_producto": 12,
+    "id_producto": 12,
+    "costo": 19500,
+    "precio_venta": 32900,
+    "stock": 45,
+    "stock_minimo": 10,
+    "imagen": "/assets/products/maybelline_fitme.jpg",
+    "fecha_ini": "2026-02-22 14:00:00",
+    "fecha_fin": null
+  },
+  {
+    "id_detalle_producto": 13,
+    "id_producto": 13,
+    "costo": 59000,
+    "precio_venta": 95000,
+    "stock": 12,
+    "stock_minimo": 4,
+    "imagen": "/assets/products/setting_powder.jpg",
+    "fecha_ini": "2026-03-01 10:50:00",
+    "fecha_fin": null
+  },
+  {
+    "id_detalle_producto": 14,
+    "id_producto": 14,
+    "costo": 135000,
+    "precio_venta": 215000,
+    "stock": 10,
+    "stock_minimo": 3,
+    "imagen": "/assets/products/kerastase_elixir.jpg",
+    "fecha_ini": "2026-03-05 16:30:00",
+    "fecha_fin": null
+  },
+  {
+    "id_detalle_producto": 15,
+    "id_producto": 15,
+    "costo": 16500,
+    "precio_venta": 28900,
+    "stock": 38,
+    "stock_minimo": 10,
+    "imagen": "/assets/products/hair_food_aguacate.jpg",
+    "fecha_ini": "2026-03-08 09:00:00",
+    "fecha_fin": null
+  },
+  {
+    "id_detalle_producto": 16,
+    "id_producto": 16,
+    "costo": 31000,
+    "precio_venta": 49900,
+    "stock": 25,
+    "stock_minimo": 6,
+    "imagen": "/assets/products/maybelline_tattoo_liner.jpg",
+    "fecha_ini": "2026-03-12 13:10:00",
+    "fecha_fin": null
+  },
+  {
+    "id_detalle_producto": 17,
+    "id_producto": 17,
+    "costo": 108000,
+    "precio_venta": 165000,
+    "stock": 14,
+    "stock_minimo": 4,
+    "imagen": "/assets/products/eucerin_antipigment.jpg",
+    "fecha_ini": "2026-03-15 15:45:00",
+    "fecha_fin": null
+  },
+  {
+    "id_detalle_producto": 18,
+    "id_producto": 18,
+    "costo": 46000,
+    "precio_venta": 74000,
+    "stock": 20,
+    "stock_minimo": 5,
+    "imagen": "/assets/products/avene_agua_termal.jpg",
+    "fecha_ini": "2026-03-20 11:00:00",
+    "fecha_fin": null
+  },
+  {
+    "id_detalle_producto": 19,
+    "id_producto": 19,
+    "costo": 52000,
+    "precio_venta": 85000,
+    "stock": 30,
+    "stock_minimo": 8,
+    "imagen": "/assets/products/beautyblender_pink.jpg",
+    "fecha_ini": "2026-03-22 17:00:00",
+    "fecha_fin": null
+  },
+  {
+    "id_detalle_producto": 20,
+    "id_producto": 20,
+    "costo": 24000,
+    "precio_venta": 42000,
+    "stock": 19,
+    "stock_minimo": 5,
+    "imagen": "/assets/products/opi_red.jpg",
+    "fecha_ini": "2026-03-25 08:40:00",
+    "fecha_fin": null
+  }
+]

@@ -1,0 +1,120 @@
+.category-list li {
+  padding: 0;
+  background: transparent !important;
+}
+
+.category-list button {
+  width: 100%;
+  padding: 12px 14px;
+  border: 0;
+  color: var(--muted);
+  background: transparent;
+  cursor: pointer;
+  font-size: .85rem;
+  text-align: left;
+  transition: all .2s;
+}
+
+.category-list button:hover,
+.category-list button.active {
+  color: var(--ink);
+  background: #eadbd3;
+}
+
+.category-list button.active {
+  font-weight: 700;
+}
+
+.catalog-controls {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  clip-path: inset(50%);
+}
+
+.product-image-placeholder {
+  display: grid;
+  width: 100%;
+  height: 100%;
+  place-items: center;
+  color: var(--blue-dark);
+  background: linear-gradient(145deg, #eaf5f8, #d9f0f8);
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  letter-spacing: .08em;
+}
+
+.img-container {
+  position: relative;
+}
+
+.stock-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  padding: 7px 10px;
+  color: var(--white);
+  background: rgba(24, 37, 43, .86);
+  font-size: .68rem;
+  letter-spacing: .04em;
+}
+
+.btn-cart:disabled {
+  background: #9aa8ad;
+  cursor: not-allowed;
+}
+
+.catalog-message {
+  padding: 30px;
+  color: var(--muted);
+  background: var(--white);
+  font-size: .9rem;
+  line-height: 1.6;
+}
+
+@media (max-width: 700px) {
+  .productos-container {
+    flex-direction: column;
+    gap: 28px;
+    padding: 40px 5vw;
+  }
+
+  .sidebar {
+    width: 100%;
+    flex-basis: auto;
+  }
+
+  .category-list {
+    flex-flow: row wrap;
+  }
+
+  .category-list li {
+    width: auto;
+  }
+
+  .category-list button {
+    width: auto;
+    border: 1px solid var(--line);
+  }
+
+  .product-header {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .catalog-controls {
+    width: 100%;
+    justify-content: flex-start;
+  }
+}

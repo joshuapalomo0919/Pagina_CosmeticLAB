@@ -1,0 +1,142 @@
+[
+  {
+    "id_marca": 1,
+    "nombre": "L'Oréal Paris",
+    "descripcion": "Marca global líder en belleza, maquillaje y cuidado capilar innovador.",
+    "logo": "/assets/brands/loreal.png",
+    "estado": "Activo"
+  },
+  {
+    "id_marca": 2,
+    "nombre": "Maybelline New York",
+    "descripcion": "Marca de maquillaje urbano en tendencia con fórmulas de alta duración.",
+    "logo": "/assets/brands/maybelline.png",
+    "estado": "Activo"
+  },
+  {
+    "id_marca": 3,
+    "nombre": "La Roche-Posay",
+    "descripcion": "Laboratorio dermatológico especializado en pieles sensibles y tratamiento.",
+    "logo": "/assets/brands/larocheposay.png",
+    "estado": "Activo"
+  },
+  {
+    "id_marca": 4,
+    "nombre": "CeraVe",
+    "descripcion": "Desarrollada con dermatólogos, enfocada en ceramidas esenciales y barrera cutánea.",
+    "logo": "/assets/brands/cerave.png",
+    "estado": "Activo"
+  },
+  {
+    "id_marca": 5,
+    "nombre": "NIVEA",
+    "descripcion": "Marca pionera en cuidado de la piel y nutrición corporal profunda.",
+    "logo": "/assets/brands/nivea.png",
+    "estado": "Inactivo"
+  },
+  {
+    "id_marca": 6,
+    "nombre": "MAC Cosmetics",
+    "descripcion": "Autoridad mundial en maquillaje profesional y paletas de alto rendimiento.",
+    "logo": "/assets/brands/maccosmetics.png",
+    "estado": "Activo"
+  },
+  {
+    "id_marca": 7,
+    "nombre": "Clinique",
+    "descripcion": "Productos 100% sin fragancia y probados contra alergias dermatológicas.",
+    "logo": "/assets/brands/clinique.png",
+    "estado": "Activo"
+  },
+  {
+    "id_marca": 8,
+    "nombre": "The Ordinary",
+    "descripcion": "Fórmulas clínicas con ingredientes activos puros a precios accesibles.",
+    "logo": "/assets/brands/theordinary.png",
+    "estado": "Activo"
+  },
+  {
+    "id_marca": 9,
+    "nombre": "Neutrogena",
+    "descripcion": "Especialistas en hidratación Hydro Boost y cuidado dermatológico diario.",
+    "logo": "/assets/brands/neutrogena.png",
+    "estado": "Activo"
+  },
+  {
+    "id_marca": 10,
+    "nombre": "Vichy",
+    "descripcion": "Cosmética basada en agua volcánica mineralizante de Francia.",
+    "logo": "/assets/brands/vichy.png",
+    "estado": "Inactivo"
+  },
+  {
+    "id_marca": 11,
+    "nombre": "Eucerin",
+    "descripcion": "Ciencia médica de la piel para hiperpigmentación y restauración.",
+    "logo": "/assets/brands/eucerin.png",
+    "estado": "Activo"
+  },
+  {
+    "id_marca": 12,
+    "nombre": "Garnier",
+    "descripcion": "Belleza natural sustentable con aguas micelares e ingredientes botánicos.",
+    "logo": "/assets/brands/garnier.png",
+    "estado": "Activo"
+  },
+  {
+    "id_marca": 13,
+    "nombre": "ISDIN",
+    "descripcion": "Líder en fotoprotección solar avanzada y dermatología pediátrica.",
+    "logo": "/assets/brands/isdin.png",
+    "estado": "Activo"
+  },
+  {
+    "id_marca": 14,
+    "nombre": "Avene",
+    "descripcion": "Basada en agua termal calmante para pieles intolerantes y atópicas.",
+    "logo": "/assets/brands/avene.png",
+    "estado": "Activo"
+  },
+  {
+    "id_marca": 15,
+    "nombre": "Revlon",
+    "descripcion": "Cosméticos icónicos de labios, uñas y bases de larga duración.",
+    "logo": "/assets/brands/revlon.png",
+    "estado": "Inactivo"
+  },
+  {
+    "id_marca": 16,
+    "nombre": "NARS",
+    "descripcion": "Maquillaje de alta gama con pigmentos audaces y acabados radiantes.",
+    "logo": "/assets/brands/nars.png",
+    "estado": "Activo"
+  },
+  {
+    "id_marca": 17,
+    "nombre": "Bioderma",
+    "descripcion": "Innovación en biología aplicada a la dermatología y agua micelar Sensibio.",
+    "logo": "/assets/brands/bioderma.png",
+    "estado": "Activo"
+  },
+  {
+    "id_marca": 18,
+    "nombre": "Kérastase",
+    "descripcion": "Cuidado capilar de lujo para transformación profunda de la fibra.",
+    "logo": "/assets/brands/kerastase.png",
+    "estado": "Activo"
+  },
+  {
+    "id_marca": 19,
+    "nombre": "OPI",
+    "descripcion": "Líder mundial en esmaltes profesionales y cuidado de uñas.",
+    "logo": "/assets/brands/opi.png",
+    "estado": "Activo"
+  },
+  {
+    "id_marca": 20,
+    "nombre": "Beautyblender",
+    "descripcion": "Esponjas de maquillaje originales para difuminado impecable.",
+    "logo": "/assets/brands/beautyblender.png",
+    "estado": "Inactivo"
+  }
+]

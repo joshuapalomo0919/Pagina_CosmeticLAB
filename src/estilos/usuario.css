@@ -1,0 +1,40 @@
+.profile-form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  max-width: 720px;
+}
+
+.profile-form label {
+  display: grid;
+  gap: 8px;
+  color: var(--ink);
+  font-size: .8rem;
+}
+
+.profile-form input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--line);
+  background: #fffdfa;
+  color: var(--ink);
+  font: inherit;
+}
+
+.profile-form .btn-submit,
+.profile-form .error-message,
+.profile-form .success-message {
+  grid-column: 1 / -1;
+}
+
+.profile-email {
+  margin: -12px 0 22px;
+  color: var(--muted);
+  font-size: .85rem;
+}
+
+@media (max-width: 520px) {
+  .profile-form {
+    grid-template-columns: 1fr;
+  }
+}

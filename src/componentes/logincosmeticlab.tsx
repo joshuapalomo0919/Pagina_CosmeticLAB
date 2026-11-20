@@ -1,43 +1,45 @@
 import { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import type { FormEvent } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useCosmetic } from '../context/cosmeticlab';
+import { useAuth } from '../context/authcosmeticlab';
 
-export interface RegisteredUser {
-  id: string;
-  firstName: string;
-  lastName: string;
-  documentType: string;
-  documentNumber: string;
-  birthDate: string;
-  email: string;
-  phone: string;
-  country: string;
-  city: string;
-  password: string;
-}
+export type { RegisteredUser } from '../types/modelos';
 
 export const USERS_STORAGE_KEY = 'cosmeticlab_users';
 
 const LoginCosmeticLab = () => {
   const { language } = useCosmetic();
+  const { login } = useAuth();
   const location = useLocation();
+  const navigate = useNavigate();
   const registeredData = location.state as { email?: string; name?: string } | null;
   const [email, setEmail] = useState(registeredData?.email || '');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState(registeredData?.name ? `Registro exitoso para ${registeredData.name}.` : '');
   const [error, setError] = useState('');
   const english = language === 'en';
-  const submitLogin = (event: React.FormEvent<HTMLFormElement>) => {
+  const submitLogin = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const users: RegisteredUser[] = JSON.parse(localStorage.getItem(USERS_STORAGE_KEY) || '[]');
-    const user = users.find((item) => item.email === email && item.password === password);
-    if (!user) {
-      setError(english ? 'Email or password not found.' : 'Correo o contrasena incorrectos.');
+    try {
+      const resultado = await login(email, password);
+      if (!resultado.ok) {
+        setError(english ? 'Email or password not found.' : 'Correo o contrasena incorrectos.');
+        setMessage('');
+        return;
+      }
+      if (!resultado.usuario || !resultado.roles) {
+        throw new Error('El usuario autenticado no se encontró en el repositorio.');
+      }
+      setError('');
+      setMessage(english ? `Successful login. Welcome, ${resultado.usuario.firstName}.` : `Inicio de sesion exitoso. Bienvenido, ${resultado.usuario.firstName}.`);
+      const destino = (location.state as { from?: string } | null)?.from;
+      navigate(destino || (resultado.roles.includes(1) ? '/admin' : '/mi-cuenta'), { replace: true });
+    } catch (loginError) {
+      console.error('No se pudo iniciar sesión.', loginError);
+      setError(english ? 'Unable to sign in. Please try again.' : 'No se pudo iniciar sesión. Inténtalo de nuevo.');
       setMessage('');
-      return;
     }
-    setError('');
-    setMessage(english ? `Successful login. Welcome, ${user.firstName}.` : `Inicio de sesion exitoso. Bienvenido, ${user.firstName}.`);
   };
   return (
     <div className="login-container">
@@ -48,21 +50,21 @@ const LoginCosmeticLab = () => {
         
         <form className="login-form" onSubmit={submitLogin}>
           <div className="form-group">
-            <label>{english ? 'Email address' : 'Correo electronico'}</label>
+            <label htmlFor="login-email">{english ? 'Email address' : 'Correo electronico'}</label>
             <div className="input-wrapper">
               <span className="input-icon">✉️</span>
-              <input type="email" value={email} onChange={(event) => setEmail(event.target.value)} placeholder="tu@correo.com" required />
+              <input id="login-email" type="email" value={email} onChange={(event) => setEmail(event.target.value)} placeholder="tu@correo.com" required />
             </div>
           </div>
           
           <div className="form-group">
             <div className="label-row">
-              <label>{english ? 'Password' : 'Contrasena'}</label>
+              <label htmlFor="login-password">{english ? 'Password' : 'Contrasena'}</label>
               <span className="link-recuperar">{english ? 'Private & secure' : 'Privado y seguro'}</span>
             </div>
             <div className="input-wrapper">
               <span className="input-icon">🔒</span>
-              <input type="password" value={password} onChange={(event) => setPassword(event.target.value)} placeholder="********" required />
+              <input id="login-password" type="password" value={password} onChange={(event) => setPassword(event.target.value)} placeholder="********" required />
             </div>
           </div>
           

@@ -1,0 +1,63 @@
+,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,
+,Diccionario de datos,,,,,,,,,,,,,
+,Nombre,Producto,,,,,,,,,,,,
+,Creacion,10/16/2026,,,,,,,,,,,,
+,Descripcion,Almacena toda la información detallada de los productos cosméticos,,,,,,,,,,,,
+,Campo,Tipo dato,Tamaño,Clave,Descripcion,,,,,,,,,
+,id_producto,INT,11,PK,Identificador único del producto,,,,,,,,,
+,nombre,VARCHAR,150,-,Nombre del producto,,,,,,,,,
+,descripcion,TEXT,-,-,Descripción detallada del producto,,,,,,,,,
+,precio,DECIMAL,"10,2",-,Precio de venta al público,,,,,,,,,
+,stock,INT,11,-,Cantidad disponible en inventario,,,,,,,,,
+,imagen,VARCHAR,255,-,Ruta de la imagen principal,,,,,,,,,
+,estado,VARCHAR,20,-,Estado del producto (Disponible/Agotado),,,,,,,,,
+,destacado,TINYINT,1,-,Indica si es destacado (0 o 1),,,,,,,,,
+,fecha_registro,DATETIME,-,-,Fecha de registro en el sistema,,,,,,,,,
+,id_categoria,INT,11,FK,Identificador de la categoría asociada,,,,,,,,,
+,id_marca,INT,11,FK,Identificador de la marca asociada,,,,,,,,,
+,,,,,,,,,,,,,,
+,Datos de ejemplo,,,,,,,,,,,,,
+,id_producto,nombre,descripcion,,,,precio,stock,imagen,estado,destacado,fecha_registro,id_categoria,id_marca
+,1,Sérum Ácido Hialurónico 2% + B5 30ml,Sérum hidratante de alta pureza que alisa la superficie cutánea y aporta volumen.,,,,45000,42,/assets/products/the_ordinary_ha.jpg,Disponible,1,2026-01-10 9:15:00,8,8
+,2,Base Super Stay Active Wear 30ml,Base líquida de cobertura completa hasta 30 horas de duración mate e intransferible.,,,,62900,30,/assets/products/maybelline_superstay.jpg,Disponible,1,2026-01-12 11:30:00,2,2
+,3,Bloqueador UVmune 400 Fluid SPF50+ 50ml,Fotoprotector ultra fluido para piel sensible con alta protección UVA ultralarga.,,,,98500,18,/assets/products/laroche_uvmune.jpg,Disponible,1,2026-01-15 14:20:00,7,3
+,4,Crema Hidratante Piel Seca a Muy Seca 454g,Restaura la barrera protectora de la piel con 3 ceramidas esenciales y ácido hialurónico.,,,,89000,25,/assets/products/cerave_crema_454g.jpg,Disponible,0,2026-01-18 16:45:00,1,4
+,5,Pestañina Lash Sensational Sky High 7.2ml,Alargamiento sin límites y volumen definido gracias a su cepillo Flex Tower.,,,,48900,60,/assets/products/sky_high_mascara.jpg,Disponible,1,2026-01-20 10:00:00,3,2
+,6,Agua Micelar Todo en 1 Piel Sensible 400ml,"Limpia, desmaquilla y reconforta rostro, ojos y labios sin aclarado.",,,,36500,50,/assets/products/garnier_micelar.jpg,Disponible,0,2026-01-22 8:30:00,13,12
+,7,Labial Matte Lipstick Velvet Teddy 3g,Icóico labial nude mate cremoso de alta pigmentación y larga duración.,,,,105000,15,/assets/products/mac_velvet_teddy.jpg,Disponible,1,2026-02-01 12:10:00,4,6
+,8,Gel Limpiador Foaming Facial Cleanser 473ml,Limpiador espumoso para piel normal a grasa que elimina el exceso de sebo.,,,,82000,35,/assets/products/cerave_foaming.jpg,Disponible,0,2026-02-05 15:00:00,13,4
+,9,Protector Solar Fotoprotector Fusion Water SPF50 50ml,Protector solar facial de fase acuosa de absorción inmediata y textura ultraligera.,,,,112000,22,/assets/products/isdin_fusion_water.jpg,Disponible,1,2026-02-10 9:40:00,7,13
+,10,Sérum Niacinamide 10% + Zinc 1% 30ml,Tratamiento altamente concentrado para reducir imperfecciones y congestión cutánea.,,,,42000,0,/assets/products/the_ordinary_niacinamide.jpg,Agotado,0,2026-02-12 17:15:00,8,8
+,11,Crema Facial Hydro Boost Water Gel 50g,GEL hidratante con ácido hialurónico que repone el agua de la piel durante 48h.,,,,68000,28,/assets/products/neutrogena_hydroboost.jpg,Disponible,0,2026-02-18 11:25:00,1,9
+,12,Corrector Fit Me Liquid Concealer 6.8ml,"Corrector de cobertura natural que disimula rojeces, imperfecciones y ojeras.",,,,32900,45,/assets/products/maybelline_fitme.jpg,Disponible,0,2026-02-22 14:00:00,2,2
+,13,Polvo Traslúcido Loose Setting Powder 29g,Polvo suelto fijador ultra fino para matificar el rostro sin recargar.,,,,95000,12,/assets/products/setting_powder.jpg,Disponible,0,2026-03-01 10:50:00,2,7
+,14,Aceite Capilar Elixir Ultime Originale 100ml,Aceite sublimador multiusos para nutrir el cabello y brindar brillo radiante.,,,,215000,10,/assets/products/kerastase_elixir.jpg,Disponible,1,2026-03-05 16:30:00,5,18
+,15,Mascarilla Capilar Fructis Hair Food Aguacate 350ml,"Tratamiento 3 en 1 para cabello seco, enriquecido con extracto de aguacate.",,,,28900,38,/assets/products/hair_food_aguacate.jpg,Disponible,0,2026-03-08 9:00:00,5,12
+,16,Delineador Líquido Tattoo Liner Black 0.6ml,Delineador de ojos a prueba de agua con punta de precisión indeleble.,,,,49900,25,/assets/products/maybelline_tattoo_liner.jpg,Disponible,0,2026-03-12 13:10:00,3,2
+,17,Sérum Anti-Pigment Dual Serum 30ml,Reduce manchas oscuras y previene su reaparición con Thiamidol patentado.,,,,165000,14,/assets/products/eucerin_antipigment.jpg,Disponible,1,2026-03-15 15:45:00,9,11
+,18,Agua Termal Calmante Spray 300ml,"Calma, suaviza y alivia la piel irritada o sensibilizada inmediatamente.",,,,74000,20,/assets/products/avene_agua_termal.jpg,Disponible,0,2026-03-20 11:00:00,20,14
+,19,Esponja de Maquillaje Beautyblender Pink,Esponja edeless sin bordes para aplicar bases y correctores sin marcas.,,,,85000,30,/assets/products/beautyblender_pink.jpg,Disponible,0,2026-03-22 17:00:00,11,20
+,20,Esmalte de Uñas Big Apple Red 15ml,Esmalte profesional de secado rápido con tono rojo clásico de alta cobertura.,,,,42000,19,/assets/products/opi_red.jpg,Disponible,0,2026-03-25 8:40:00,14,19
+,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,
+,,PRODUCTO,,,,,,,,,,,,
+,,ID,NOMBRE,PRECIO_VENTA,,,,,,,,,,
+,,1,CHOCORRAMO,2000,,,,,,,,,,
+,,2,DRACULA,4000,,,,,,,,,,
+,,,,3500,,,,,,,,,,
+,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,
+,,DETALLE_PRODUCTO,,,,,,,,,,,,
+,,ID,COD_PRODUCTO,COSTO,,STOCK,FECHA_INI,FECHA_FIN,,,,,,
+,,1,1,1500,,10,01/11/2026,14/11/2026,,,,,,
+,,2,2,3000,,15,01/11/2026,,,,,,,
+,,3,1,2500,,5,14/11/20260,,,,,,,

@@ -1,0 +1,102 @@
+[
+  {
+    "id_categoria": 1,
+    "nombre": "Cuidado Facial (Skincare)",
+    "descripcion": "Productos formulados para limpieza, hidratación y tratamiento del rostro."
+  },
+  {
+    "id_categoria": 2,
+    "nombre": "Maquillaje de Rostro",
+    "descripcion": "Bases, correctores, polvos y rubores para uniformar e iluminar la piel."
+  },
+  {
+    "id_categoria": 3,
+    "nombre": "Maquillaje de Ojos",
+    "descripcion": "Pestañinas, delineadores y paletas de sombras de alta pigmentación."
+  },
+  {
+    "id_categoria": 4,
+    "nombre": "Maquillaje de Labios",
+    "descripcion": "Labiales mate, lip gloss, bálsamos e hidratantes con color."
+  },
+  {
+    "id_categoria": 5,
+    "nombre": "Cuidado Capilar",
+    "descripcion": "Champús, acondicionadores, mascarillas y tratamientos de reparación capilar."
+  },
+  {
+    "id_categoria": 6,
+    "nombre": "Cuidado Corporal",
+    "descripcion": "Cremas hidratantes, exfoliantes y aceites corporales nutritivos."
+  },
+  {
+    "id_categoria": 7,
+    "nombre": "Protección Solar",
+    "descripcion": "Protectores solares faciales y corporales de amplio espectro SPF 30, 50+ y tópicamente invisibles."
+  },
+  {
+    "id_categoria": 8,
+    "nombre": "Sérums y Tratamientos",
+    "descripcion": "Concentrados de activos dermatológicos como Ácido Hialurónico, Retinol y Vitamina C."
+  },
+  {
+    "id_categoria": 9,
+    "nombre": "Dermoestética",
+    "descripcion": "Tratamientos avanzados para manchas, acné, antiedad y líneas de expresión."
+  },
+  {
+    "id_categoria": 10,
+    "nombre": "Perfumería y Fragancias",
+    "descripcion": "Lociones, eau de parfum y brumas corporales aromatizadas."
+  },
+  {
+    "id_categoria": 11,
+    "nombre": "Accesorios y Brochas",
+    "descripcion": "Herramientas de aplicación, esponjas beauty blender y brochas profesionales."
+  },
+  {
+    "id_categoria": 12,
+    "nombre": "Mascarillas Faciales",
+    "descripcion": "Mascarillas en velo (sheet masks), arcilla y parches para contorno de ojos."
+  },
+  {
+    "id_categoria": 13,
+    "nombre": "Desmaquillantes y Limpiadores",
+    "descripcion": "Aguas micelares, aceites limpiadores desmaquillantes y geles limpiadores."
+  },
+  {
+    "id_categoria": 14,
+    "nombre": "Cuidado de Manos y Uñas",
+    "descripcion": "Cremas para manos, aceites de cutícula y esmaltes fortalecedores."
+  },
+  {
+    "id_categoria": 15,
+    "nombre": "Cosmética Natural y Orgánica",
+    "descripcion": "Productos elaborados con ingredientes botánicos, veganos y libres de crueldad animal."
+  },
+  {
+    "id_categoria": 16,
+    "nombre": "Exfoliantes Químicos y Físicos",
+    "descripcion": "Tónicos con AHA/BHA, exfoliantes de granos finos y peellings suavizantes."
+  },
+  {
+    "id_categoria": 17,
+    "nombre": "Sets y Kits de Regalo",
+    "descripcion": "Combos especiales para rutinas completas de belleza y regalo."
+  },
+  {
+    "id_categoria": 18,
+    "nombre": "Cuidado Ocular y Labial",
+    "descripcion": "Contornos de ojos desinflamatorios y mascarillas nocturnas para labios."
+  },
+  {
+    "id_categoria": 19,
+    "nombre": "Línea Masculina (Grooming)",
+    "descripcion": "Productos especializados en cuidado de la barba, afeitado y piel masculina."
+  },
+  {
+    "id_categoria": 20,
+    "nombre": "Tónicos y Brumas Faciales",
+    "descripcion": "Hidratantes en spray, agua de rosas y fijadores de maquillaje."
+  }
+]

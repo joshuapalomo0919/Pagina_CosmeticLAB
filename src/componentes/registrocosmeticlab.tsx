@@ -2,8 +2,7 @@ import { useState } from 'react';
 import type { FormEvent } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useCosmetic } from '../context/cosmeticlab';
-import type { RegisteredUser } from './logincosmeticlab';
-import { USERS_STORAGE_KEY } from './logincosmeticlab';
+import { useAuth } from '../context/authcosmeticlab';
 
 const emptyForm = {
   firstName: '',
@@ -22,33 +21,20 @@ const emptyForm = {
 
 type RegistrationForm = typeof emptyForm;
 
-const getStoredUsers = (): RegisteredUser[] => {
-  try {
-    return JSON.parse(localStorage.getItem(USERS_STORAGE_KEY) || '[]') as RegisteredUser[];
-  } catch {
-    return [];
-  }
-};
-
 const RegistroCosmeticLab = () => {
   const { language } = useCosmetic();
+  const { registrar } = useAuth();
   const navigate = useNavigate();
   const english = language === 'en';
   const [form, setForm] = useState<RegistrationForm>(emptyForm);
-  const [users, setUsers] = useState<RegisteredUser[]>(getStoredUsers);
   const [error, setError] = useState('');
 
   const updateField = (field: keyof RegistrationForm, value: string | boolean) => {
     setForm((current) => ({ ...current, [field]: value }));
   };
 
-  const submitRegistration = (event: FormEvent<HTMLFormElement>) => {
+  const submitRegistration = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const currentUsers = getStoredUsers();
-    if (currentUsers.some((user) => user.email.toLowerCase() === form.email.toLowerCase())) {
-      setError(english ? 'This email is already registered.' : 'Este correo ya esta registrado.');
-      return;
-    }
     if (form.password !== form.confirmPassword) {
       setError(english ? 'Passwords do not match.' : 'Las contrasenas no coinciden.');
       return;
@@ -58,29 +44,24 @@ const RegistroCosmeticLab = () => {
       return;
     }
 
-    const newUser: RegisteredUser = {
-      id: `${Date.now()}-${Math.random().toString(36).slice(2)}`,
-      firstName: form.firstName,
-      lastName: form.lastName,
-      documentType: form.documentType,
-      documentNumber: form.documentNumber,
-      birthDate: form.birthDate,
-      email: form.email,
-      phone: form.phone,
-      country: form.country,
-      city: form.city,
-      password: form.password,
-    };
-    const updatedUsers = [...currentUsers, newUser];
-    localStorage.setItem(USERS_STORAGE_KEY, JSON.stringify(updatedUsers));
-    setUsers(updatedUsers);
-    navigate('/login', { state: { email: newUser.email, name: newUser.firstName } });
-  };
-
-  const removeUser = (id: string) => {
-    const updatedUsers = users.filter((user) => user.id !== id);
-    localStorage.setItem(USERS_STORAGE_KEY, JSON.stringify(updatedUsers));
-    setUsers(updatedUsers);
+    try {
+      const newUser = await registrar({
+        firstName: form.firstName,
+        lastName: form.lastName,
+        documentType: form.documentType,
+        documentNumber: form.documentNumber,
+        birthDate: form.birthDate,
+        email: form.email,
+        phone: form.phone,
+        country: form.country,
+        city: form.city,
+        password: form.password,
+      });
+      navigate('/login', { state: { email: newUser.email, name: newUser.firstName } });
+    } catch (registrationError) {
+      console.error('No se pudo completar el registro.', registrationError);
+      setError(english ? 'This email is already registered or registration failed.' : 'Este correo ya existe o no se pudo completar el registro.');
+    }
   };
 
   return (
@@ -127,11 +108,6 @@ const RegistroCosmeticLab = () => {
           {error && <p className="error-message">{error}</p>}
           <button type="submit" className="btn-submit">{english ? 'Submit form' : 'Enviar formulario'}</button>
         </form>
-
-        <section className="stored-users" aria-live="polite">
-          <div><span className="section-kicker">LocalStorage</span><h2>{english ? 'Saved registrations' : 'Registros guardados'}</h2></div>
-          {users.length === 0 ? <p>{english ? 'No registrations yet.' : 'Aun no hay registros.'}</p> : users.map((user) => <div className="stored-user" key={user.id}><div><strong>{user.firstName} {user.lastName}</strong><span>{user.email} · {user.documentNumber}</span></div><button type="button" onClick={() => removeUser(user.id)}>{english ? 'Delete' : 'Eliminar'}</button></div>)}
-        </section>
       </section>
     </main>
   );

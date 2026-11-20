@@ -1,0 +1,37 @@
+,,,,,,
+,,,,,,
+,,,,,,
+,Diccionario de datos,,,,,
+,Nombre,Marca,,,,
+,Creacion,16/10/2026,,,,
+,Descripcion,Almacena la información de las marcas fabricantes de los productos,,,,
+,Campo,Tipo dato,Tamaño,Clave,Descripcion,
+,id_marca,INT,11,PK,Código único de la marca,
+,nombre,VARCHAR,100,UNIQUE,Nombre de la marca,
+,descripcion,TEXT,-,-,Descripción general de la marca,
+,logo,VARCHAR,255,-,Ruta de la imagen del logo,
+,estado,VARCHAR,20,-,Estado de la marca (Activo/Inactivo),
+,,,,,,
+,,,,,,
+,Datos de ejemplo,,,,,
+,id_marca,nombre,descripcion,,logo,estado
+,1,L'Oréal Paris,"Marca global líder en belleza, maquillaje y cuidado capilar innovador.",,/assets/brands/loreal.png,Activo
+,2,Maybelline New York,Marca de maquillaje urbano en tendencia con fórmulas de alta duración.,,/assets/brands/maybelline.png,Activo
+,3,La Roche-Posay,Laboratorio dermatológico especializado en pieles sensibles y tratamiento.,,/assets/brands/larocheposay.png,Activo
+,4,CeraVe,"Desarrollada con dermatólogos, enfocada en ceramidas esenciales y barrera cutánea.",,/assets/brands/cerave.png,Activo
+,5,NIVEA,Marca pionera en cuidado de la piel y nutrición corporal profunda.,,/assets/brands/nivea.png,Inactivo
+,6,MAC Cosmetics,Autoridad mundial en maquillaje profesional y paletas de alto rendimiento.,,/assets/brands/maccosmetics.png,Activo
+,7,Clinique,Productos 100% sin fragancia y probados contra alergias dermatológicas.,,/assets/brands/clinique.png,Activo
+,8,The Ordinary,Fórmulas clínicas con ingredientes activos puros a precios accesibles.,,/assets/brands/theordinary.png,Activo
+,9,Neutrogena,Especialistas en hidratación Hydro Boost y cuidado dermatológico diario.,,/assets/brands/neutrogena.png,Activo
+,10,Vichy,Cosmética basada en agua volcánica mineralizante de Francia.,,/assets/brands/vichy.png,Inactivo
+,11,Eucerin,Ciencia médica de la piel para hiperpigmentación y restauración.,,/assets/brands/eucerin.png,Activo
+,12,Garnier,Belleza natural sustentable con aguas micelares e ingredientes botánicos.,,/assets/brands/garnier.png,Activo
+,13,ISDIN,Líder en fotoprotección solar avanzada y dermatología pediátrica.,,/assets/brands/isdin.png,Activo
+,14,Avene,Basada en agua termal calmante para pieles intolerantes y atópicas.,,/assets/brands/avene.png,Activo
+,15,Revlon,"Cosméticos icónicos de labios, uñas y bases de larga duración.",,/assets/brands/revlon.png,Inactivo
+,16,NARS,Maquillaje de alta gama con pigmentos audaces y acabados radiantes.,,/assets/brands/nars.png,Activo
+,17,Bioderma,Innovación en biología aplicada a la dermatología y agua micelar Sensibio.,,/assets/brands/bioderma.png,Activo
+,18,Kérastase,Cuidado capilar de lujo para transformación profunda de la fibra.,,/assets/brands/kerastase.png,Activo
+,19,OPI,Líder mundial en esmaltes profesionales y cuidado de uñas.,,/assets/brands/opi.png,Activo
+,20,Beautyblender,Esponjas de maquillaje originales para difuminado impecable.,,/assets/brands/beautyblender.png,Inactivo
