@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/authcosmeticlab';
 import { useCosmetic } from '../context/cosmeticlab';
 import CartDrawer from './carritodrawercosmeticlab';
@@ -9,6 +9,8 @@ const NavBar = () => {
   const { currentUser, isAdmin, logout } = useAuth();
   const [cartOpen, setCartOpen] = useState(false);
   const [logoutError, setLogoutError] = useState('');
+  const [activeNavItem, setActiveNavItem] = useState('');
+  const { pathname, hash } = useLocation();
   const total = cart.reduce((sum, product) => sum + product.price, 0);
   const copy = language === 'es'
     ? {
@@ -21,6 +23,58 @@ const NavBar = () => {
       appointments: 'Appointments', register: 'Sign up', login: 'Log in', account: 'My account',
       panel: 'Dashboard', logout: 'Log out',
     };
+
+  useEffect(() => {
+    const navbar = document.querySelector<HTMLElement>('.navbar');
+    const actualizarEnlaceActivo = () => {
+      const alturaNavbar = navbar?.getBoundingClientRect().height ?? 82;
+      document.documentElement.style.setProperty('--navbar-height', `${Math.ceil(alturaNavbar)}px`);
+
+      if (pathname === '/productos') {
+        setActiveNavItem('products');
+        return;
+      }
+      if (pathname === '/citas') {
+        setActiveNavItem('appointments');
+        return;
+      }
+      if (pathname !== '/') {
+        setActiveNavItem('');
+        return;
+      }
+
+      const secciones = [
+        { id: 'inicio', item: 'home' },
+        { id: 'nosotros', item: 'about' },
+        { id: 'estilos-destacados', item: 'home' },
+        { id: 'estilos', item: 'home' },
+        { id: 'proceso', item: 'home' },
+        { id: 'equipo', item: 'home' },
+        { id: 'contacto', item: 'contact' },
+      ];
+      let actual = 'home';
+
+      for (const seccion of secciones) {
+        const elemento = document.getElementById(seccion.id);
+        if (elemento && elemento.getBoundingClientRect().top <= alturaNavbar + 1) {
+          actual = seccion.item;
+        }
+      }
+      setActiveNavItem(actual);
+    };
+
+    const observadorNavbar = new ResizeObserver(actualizarEnlaceActivo);
+    if (navbar) observadorNavbar.observe(navbar);
+    const frameId = window.requestAnimationFrame(actualizarEnlaceActivo);
+    window.addEventListener('scroll', actualizarEnlaceActivo, { passive: true });
+    window.addEventListener('resize', actualizarEnlaceActivo);
+    return () => {
+      window.cancelAnimationFrame(frameId);
+      observadorNavbar.disconnect();
+      window.removeEventListener('scroll', actualizarEnlaceActivo);
+      window.removeEventListener('resize', actualizarEnlaceActivo);
+    };
+  }, [pathname, hash]);
 
   const cerrarSesion = async () => {
     try {
@@ -40,17 +94,17 @@ const NavBar = () => {
           <span className="drop-icon">✦</span> <strong translate="no">CosmeticLAB</strong>
         </div>
         <div className="nav-links">
-          <Link to="/">{copy.home}</Link>
-          <Link to="/productos">{copy.products}</Link>
-          <Link to="/citas">{copy.appointments}</Link>
-          <a href="/#nosotros">{copy.about}</a>
-          <a href="/#contacto">{copy.contact}</a>
+          <Link to="/#inicio" aria-current={activeNavItem === 'home' ? 'page' : undefined}>{copy.home}</Link>
+          <Link to="/productos" aria-current={activeNavItem === 'products' ? 'page' : undefined}>{copy.products}</Link>
+          <Link to="/citas" aria-current={activeNavItem === 'appointments' ? 'page' : undefined}>{copy.appointments}</Link>
+          <Link to="/#nosotros" aria-current={activeNavItem === 'about' ? 'page' : undefined}>{copy.about}</Link>
+          <Link to="/#contacto" aria-current={activeNavItem === 'contact' ? 'page' : undefined}>{copy.contact}</Link>
         </div>
         <div className="nav-actions">
           {logoutError && <span className="nav-error" role="alert">{logoutError}</span>}
           <button className="lang" onClick={toggleLanguage} aria-label="Cambiar idioma">◎ {language.toUpperCase()}</button>
           <button className="cart-icon" onClick={() => setCartOpen(true)} aria-label="Abrir carrito">
-            <span className="cart-symbol" aria-hidden="true">💄</span>
+            <img className="cart-symbol" src="/assets/carrito-de-compra.png" alt="" />
             {cart.length > 0 && <span className="cart-count">{cart.length}</span>}
           </button>
           {currentUser ? (

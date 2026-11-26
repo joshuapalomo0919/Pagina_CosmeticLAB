@@ -108,6 +108,14 @@ export interface Servicio {
   estado: EstadoServicio;
 }
 
+// TODO(confirmar): incorporar esta entidad y sus claves/tipos al diccionario de datos.
+export interface Maquilladora {
+  id_maquilladora: number;
+  nombre: string;
+  imagen: string;
+  estado: EstadoRegistro;
+}
+
 export interface Horario {
   id_horario: number;
   dia_semana: string;
@@ -141,6 +149,7 @@ export interface Pedido {
 export interface Cita {
   id_cita: number;               // PK
   id_usuario: number;            // FK -> Usuario
+  id_maquilladora: number;       // TODO(confirmar): FK -> Maquilladora
   fecha: SqlDate;
   hora_inicio: SqlTime;
   hora_fin: SqlTime;

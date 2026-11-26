@@ -2,9 +2,16 @@ import { leerTabla, siguienteId, escribirTablasAtomico } from '../almacen';
 import { listarDetallesCita } from '../repositorios/detallecitarepo';
 import { listarCitas } from '../repositorios/citarepo';
 import { listarHorarios } from '../repositorios/horariorepo';
+import { listarMaquilladoras } from '../repositorios/maquilladorarepo';
 import { listarServicios } from '../repositorios/serviciorepo';
 import { listarUsuarios } from '../repositorios/usuariorepo';
-import type { Cita, DetalleCita, Horario, RegisteredUser, Servicio } from '../../types/modelos';
+import type {
+  Cita,
+  DetalleCita,
+  Horario,
+  RegisteredUser,
+  Servicio,
+} from '../../types/modelos';
 import { ahoraSQL } from '../../utils/formato';
 
 const DIAS_SEMANA = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];
@@ -17,6 +24,7 @@ const fechaHoyLocal = (): string => {
 export interface DatosAgendarCita {
   id_usuario: number;
   id_servicio: number;
+  id_maquilladora: number;
   id_horario: number;
   fecha: string;
   cantidad_personas: number;
@@ -26,6 +34,7 @@ export interface DatosAgendarCita {
 
 export interface CitaConDetalle extends Cita {
   servicio_nombre: string;
+  maquilladora_nombre: string;
   usuario_nombre: string;
 }
 
@@ -55,6 +64,10 @@ const duracionEnMinutos = (duracion: string): number => {
     throw new Error('La duración del servicio debe ser un número de minutos mayor que cero.');
   }
   return resultado;
+};
+
+export const validarDuracionServicio = (duracion: string): void => {
+  duracionEnMinutos(duracion);
 };
 
 const validarFecha = (fecha: string): Date => {
@@ -97,12 +110,14 @@ const validarSinSolapamiento = (
   fecha: string,
   horaInicio: string,
   horaFin: string,
+  idMaquilladora: number,
 ): void => {
   const inicio = convertirHoraAMinutos(horaInicio);
   const fin = convertirHoraAMinutos(horaFin);
   const solapada = citas.some((cita) => (
     cita.fecha === fecha
     && cita.estado === 'Programada'
+    && cita.id_maquilladora === idMaquilladora
     && inicio < convertirHoraAMinutos(cita.hora_fin)
     && convertirHoraAMinutos(cita.hora_inicio) < fin
   ));
@@ -118,16 +133,23 @@ export const listarServiciosDisponibles = async (): Promise<Servicio[]> => (
 export const obtenerHorariosDisponibles = async (
   idServicio: number,
   fecha: string,
+  idMaquilladora: number,
 ): Promise<Horario[]> => {
   const fechaValidada = validarFecha(fecha);
-  const [servicios, horarios, citas] = await Promise.all([
+  const [servicios, horarios, citas, maquilladoras] = await Promise.all([
     listarServicios(),
     listarHorarios(),
     listarCitas(),
+    listarMaquilladoras(),
   ]);
   const servicio = servicios.find((fila) => fila.id_servicio === idServicio && fila.estado === 'Activo');
   if (!servicio) {
     throw new Error('El servicio seleccionado no está disponible.');
+  }
+  if (!maquilladoras.some((fila) => (
+    fila.id_maquilladora === idMaquilladora && fila.estado === 'Activo'
+  ))) {
+    throw new Error('La maquilladora seleccionada no está disponible.');
   }
   const dia = DIAS_SEMANA[fechaValidada.getUTCDay()];
 
@@ -149,6 +171,7 @@ export const obtenerHorariosDisponibles = async (
       return !citas.some((cita) => (
         cita.fecha === fecha
         && cita.estado === 'Programada'
+        && cita.id_maquilladora === idMaquilladora
         && inicio < convertirHoraAMinutos(cita.hora_fin)
         && convertirHoraAMinutos(cita.hora_inicio) < fin
       ));
@@ -175,15 +198,25 @@ export const agendarCita = async (datos: DatosAgendarCita): Promise<Cita> => {
     throw new Error('La fecha seleccionada no es válida.');
   }
 
-  const [servicios, horarios, citas, detalles] = await Promise.all([
+  const [servicios, horarios, citas, detalles, maquilladoras, usuarios] = await Promise.all([
     listarServicios(),
     listarHorarios(),
     listarCitas(),
     listarDetallesCita(),
+    listarMaquilladoras(),
+    listarUsuarios(),
   ]);
   const servicio = servicios.find((fila) => fila.id_servicio === datos.id_servicio);
   if (!servicio || servicio.estado !== 'Activo') {
     throw new Error('El servicio seleccionado ya no está disponible.');
+  }
+  if (!maquilladoras.some((fila) => (
+    fila.id_maquilladora === datos.id_maquilladora && fila.estado === 'Activo'
+  ))) {
+    throw new Error('La maquilladora seleccionada ya no está disponible.');
+  }
+  if (!usuarios.some((fila) => fila.id === datos.id_usuario)) {
+    throw new Error('No se encontró el usuario que solicita la cita.');
   }
   const horario = horarios.find((fila) => fila.id_horario === datos.id_horario);
   const dia = DIAS_SEMANA[fecha.getUTCDay()];
@@ -206,7 +239,7 @@ export const agendarCita = async (datos: DatosAgendarCita): Promise<Cita> => {
   }
   const horaInicio = horaDesdeMinutos(inicio);
   const horaFin = horaDesdeMinutos(fin);
-  validarSinSolapamiento(citas, datos.fecha, horaInicio, horaFin);
+  validarSinSolapamiento(citas, datos.fecha, horaInicio, horaFin, datos.id_maquilladora);
 
   const total = servicio.precio * cantidadPersonas;
   if (!Number.isFinite(total)) {
@@ -215,6 +248,7 @@ export const agendarCita = async (datos: DatosAgendarCita): Promise<Cita> => {
   const cita: Cita = {
     id_cita: siguienteId('Cita', 'id_cita'),
     id_usuario: datos.id_usuario,
+    id_maquilladora: datos.id_maquilladora,
     fecha: datos.fecha,
     hora_inicio: horaInicio,
     hora_fin: horaFin,
@@ -236,7 +270,13 @@ export const agendarCita = async (datos: DatosAgendarCita): Promise<Cita> => {
     subtotal: total,
   };
 
-  validarSinSolapamiento(leerTabla<Cita>('Cita'), datos.fecha, horaInicio, horaFin);
+  validarSinSolapamiento(
+    leerTabla<Cita>('Cita'),
+    datos.fecha,
+    horaInicio,
+    horaFin,
+    datos.id_maquilladora,
+  );
   escribirTablasAtomico({
     Cita: [...citas, cita],
     DetalleCita: [...detalles, detalle],
@@ -245,18 +285,23 @@ export const agendarCita = async (datos: DatosAgendarCita): Promise<Cita> => {
 };
 
 const enriquecerCitas = async (citas: Cita[]): Promise<CitaConDetalle[]> => {
-  const [detalles, servicios, usuarios] = await Promise.all([
+  const [detalles, servicios, maquilladoras, usuarios] = await Promise.all([
     listarDetallesCita(),
     listarServicios(),
+    listarMaquilladoras(),
     listarUsuarios(),
   ]);
   return citas.map((cita) => {
     const detalle = detalles.find((fila) => fila.id_cita === cita.id_cita);
     const servicio = servicios.find((fila) => fila.id_servicio === detalle?.id_servicio);
+    const maquilladora = maquilladoras.find(
+      (fila) => fila.id_maquilladora === cita.id_maquilladora,
+    );
     const usuario = usuarios.find((fila) => fila.id === cita.id_usuario);
     return {
       ...cita,
       servicio_nombre: servicio?.nombre ?? 'Servicio no disponible',
+      maquilladora_nombre: maquilladora?.nombre ?? 'Maquilladora no disponible',
       usuario_nombre: nombreUsuario(usuario),
     };
   });

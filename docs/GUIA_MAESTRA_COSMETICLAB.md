@@ -18,7 +18,7 @@ Versión 1 · 19/11/2026
 | Tema | Estado |
 |---|---|
 | Páginas que ya existen | Inicio, Productos, Login, Registro, carrito (drawer), idioma ES/EN |
-| Entidades del diccionario | 20 en total: 10 con detalle de campos, 10 sin detalle (faltan capturas) |
+| Entidades | 20 del diccionario original; `Maquilladora` se añadió con autorización y queda pendiente formalizarla en el diccionario |
 | Entidades implementadas | 0 completas, 6 parciales, 14 sin empezar |
 | Perfiles pedidos | Administrador y Usuario (ambos entran por el mismo login) |
 | Estrategia | Tipos idénticos al diccionario + repositorios `async` + semillas desde CSV. Así el cambio a base de datos es de una sola capa. |
@@ -82,7 +82,7 @@ React + Vite + TypeScript, rutas con `react-router-dom`, contexto de carrito e i
 
 ---
 
-## 3. Cobertura del diccionario (20 entidades)
+## 3. Cobertura del diccionario (20 entidades originales)
 
 | # | Entidad | Diccionario | Código hoy | Administrador | Usuario | Fase |
 |---|---|---|---|---|---|---|
@@ -106,6 +106,7 @@ React + Vite + TypeScript, rutas con `react-router-dom`, contexto de carrito e i
 | 18 | Servicio | Falta captura | Sin empezar | CRUD | Ve | 6 |
 | 19 | Cita | Visto | Sin empezar | Gestiona | Agenda y cancela | 6 |
 | 20 | DetalleCita | Visto | Sin empezar | Ve | Ve | 6 |
+| 21 | Maquilladora | Extensión autorizada; falta captura formal | Parcial | Gestiona perfil y foto | Selecciona para la cita | 6 |
 
 **Capturas que faltan:** Rol, Usuario, DetallePedido, Entregas, Carrito, DetalleCarrito, Notificaciones, pqr, Horario y Servicio.
 
@@ -114,6 +115,8 @@ React + Vite + TypeScript, rutas con `react-router-dom`, contexto de carrito e i
 ## 4. Modelo de datos (copiar a `src/types/modelos.ts`)
 
 Solo incluye lo que se ve en las capturas. No se inventó nada: lo que falta está marcado.
+
+**Extensión autorizada para citas:** se agregó `Maquilladora` con `id_maquilladora`, `nombre`, `imagen` y `estado`, y una relación `Cita.id_maquilladora`. Falta confirmar estos campos, sus tipos/tamaños SQL y el mecanismo de carga de imágenes al definir el diccionario/API. En el prototipo la imagen se guarda localmente como ruta o Data URL.
 
 ```ts
 // src/types/modelos.ts
@@ -535,7 +538,7 @@ Actualízalo al terminar cada fase (o pásamelo y lo actualizo yo).
 
 ## 10. Pendientes de tu parte
 
-**Datos semilla pendientes:** agregar `Servicio.csv` y `Horario.csv` a `scripts/csv/` y ejecutar `npm run semillas`; los CSV de catálogo ya están agregados y convertidos.
+**Citas:** `Moda`, `Social` y `Novia` se cargan inactivos hasta definir precio y duración. No se inventaron días ni horas: el administrador configura los bloques en `/admin/citas`.
 
 **Decisiones a confirmar:**
 1. ¿Cómo se llaman los roles 3, 4 y 5? ¿Los usará la página o solo el administrador y el usuario?
@@ -544,4 +547,4 @@ Actualízalo al terminar cada fase (o pásamelo y lo actualizo yo).
 4. ¿Estás de acuerdo con los 6 renombres de campos de la sección 2.3?
 5. ¿Los 6 productos inventados del prototipo se reemplazan por los del diccionario?
 
-**Archivos:** exportar a CSV las hojas de datos de ejemplo de las 20 entidades.
+**Archivos:** exportar a CSV las hojas de datos de ejemplo de las 20 entidades originales.

@@ -1,7 +1,7 @@
 const PREFIJO_TABLA = 'cosmeticlab_db_';
 const CLAVE_VERSION = 'cosmeticlab_db_version';
 const CLAVE_USUARIOS_HEREDADA = 'cosmeticlab_users';
-export const VERSION_ALMACEN = 2;
+export const VERSION_ALMACEN = 3;
 
 const obtenerAlmacen = (): Storage => {
   if (typeof window === 'undefined' || !window.localStorage) {
@@ -110,12 +110,41 @@ export const migrar = (): void => {
     if (version < 2) {
       migrarIdsUsuarios(almacen);
     }
+    if (version < 3) {
+      migrarMaquilladoraCitas(almacen);
+    }
 
     almacen.setItem(CLAVE_VERSION, String(VERSION_ALMACEN));
   } catch (error) {
     const detalle = error instanceof Error ? ` ${error.message}` : '';
     throw new Error(`No se pudo inicializar la versión de datos.${detalle}`);
   }
+};
+
+const migrarMaquilladoraCitas = (almacen: Storage): void => {
+  const clave = claveTabla('Cita');
+  const contenido = almacen.getItem(clave);
+  if (contenido === null) return;
+
+  const filas: unknown = JSON.parse(contenido);
+  if (!Array.isArray(filas)) {
+    throw new Error('La tabla de citas guardada no contiene una lista.');
+  }
+  const citas = filas.map((fila: unknown, indice: number) => {
+    if (typeof fila !== 'object' || fila === null || Array.isArray(fila)) {
+      throw new Error(`La cita guardada en la posición ${indice + 1} no es válida.`);
+    }
+    const cita = fila as Record<string, unknown>;
+    const idMaquilladora = cita.id_maquilladora;
+    if (
+      idMaquilladora !== undefined
+      && (typeof idMaquilladora !== 'number' || !Number.isSafeInteger(idMaquilladora) || idMaquilladora < 1)
+    ) {
+      throw new Error(`La cita guardada en la posición ${indice + 1} tiene una maquilladora no válida.`);
+    }
+    return { ...cita, id_maquilladora: idMaquilladora ?? 1 };
+  });
+  almacen.setItem(clave, JSON.stringify(citas));
 };
 
 const migrarIdsUsuarios = (almacen: Storage): void => {

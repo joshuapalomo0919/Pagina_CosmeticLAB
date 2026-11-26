@@ -7,6 +7,7 @@ const repositorio = crearRepositorio<Cita, 'id_cita'>(
   {
     clavesForaneas: [
       { campo: 'id_usuario', tabla: 'Usuario', campoReferenciado: 'id' },
+      { campo: 'id_maquilladora', tabla: 'Maquilladora', campoReferenciado: 'id_maquilladora' },
       { campo: 'id_horario', tabla: 'Horario', campoReferenciado: 'id_horario' },
     ],
     dependientes: [{ tabla: 'DetalleCita', campo: 'id_cita' }],

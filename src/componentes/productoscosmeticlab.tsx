@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import type { Product } from '../context/cosmeticlab';
 import { useCosmetic } from '../context/cosmeticlab';
 import { listarCategorias } from '../data/repositorios/categoriarepo';
@@ -36,6 +36,9 @@ const ProductosCosmeticLab = () => {
   const [productos, setProductos] = useState<ProductoVista[]>([]);
   const [categoriaSeleccionada, setCategoriaSeleccionada] = useState<number | null>(null);
   const [marcaSeleccionada, setMarcaSeleccionada] = useState<number | null>(null);
+  const [productoDetalle, setProductoDetalle] = useState<ProductoVista | null>(null);
+  const categoriasDropdown = useRef<HTMLDetailsElement>(null);
+  const dialogoDetalle = useRef<HTMLDialogElement>(null);
   const [orden, setOrden] = useState<'featured' | 'price-low' | 'price-high'>('featured');
   const [cargando, setCargando] = useState(true);
   const [error, setError] = useState('');
@@ -74,34 +77,54 @@ const ProductosCosmeticLab = () => {
       return b.destacado - a.destacado || a.id_producto - b.id_producto;
     }), [productos, categoriaSeleccionada, marcaSeleccionada, orden]);
 
+  useEffect(() => {
+    const dialogo = dialogoDetalle.current;
+    if (!dialogo) return;
+    if (productoDetalle && !dialogo.open) dialogo.showModal();
+    else if (!productoDetalle && dialogo.open) dialogo.close();
+  }, [productoDetalle]);
+
   return (
     <div className="productos-container">
       <aside className="sidebar">
         <h3><span className="filter-icon">⌁</span> {english ? 'Categories' : 'Categorías'}</h3>
-        <ul className="category-list">
-          <li>
-            <button
-              type="button"
-              className={categoriaSeleccionada === null ? 'active' : ''}
-              aria-pressed={categoriaSeleccionada === null}
-              onClick={() => setCategoriaSeleccionada(null)}
-            >
-              {english ? 'All' : 'Todos'}
-            </button>
-          </li>
-          {categorias.map((categoria) => (
-            <li key={categoria.id_categoria}>
+        <details ref={categoriasDropdown} className="category-dropdown">
+          <summary>
+            {categoriaSeleccionada === null
+              ? (english ? 'All products' : 'Todas las categorías')
+              : categorias.find((categoria) => categoria.id_categoria === categoriaSeleccionada)?.nombre}
+          </summary>
+          <ul className="category-list">
+            <li>
               <button
                 type="button"
-                className={categoriaSeleccionada === categoria.id_categoria ? 'active' : ''}
-                aria-pressed={categoriaSeleccionada === categoria.id_categoria}
-                onClick={() => setCategoriaSeleccionada(categoria.id_categoria)}
+                className={categoriaSeleccionada === null ? 'active' : ''}
+                aria-pressed={categoriaSeleccionada === null}
+                onClick={() => {
+                  setCategoriaSeleccionada(null);
+                  if (categoriasDropdown.current) categoriasDropdown.current.open = false;
+                }}
               >
-                {categoria.nombre}
+                {english ? 'All' : 'Todos'}
               </button>
             </li>
-          ))}
-        </ul>
+            {categorias.map((categoria) => (
+              <li key={categoria.id_categoria}>
+                <button
+                  type="button"
+                  className={categoriaSeleccionada === categoria.id_categoria ? 'active' : ''}
+                  aria-pressed={categoriaSeleccionada === categoria.id_categoria}
+                  onClick={() => {
+                    setCategoriaSeleccionada(categoria.id_categoria);
+                    if (categoriasDropdown.current) categoriasDropdown.current.open = false;
+                  }}
+                >
+                  {categoria.nombre}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </details>
       </aside>
 
       <main className="product-main">
@@ -156,33 +179,91 @@ const ProductosCosmeticLab = () => {
           <div className="grid-productos">
             {productosVisibles.map((producto) => (
               <article key={producto.id_producto} className="product-card">
-                <div className="img-container">
-                  <ImagenProducto key={producto.imagen} src={producto.imagen} alt={producto.nombre} />
-                  {producto.estado === 'Agotado' && (
-                    <span className="stock-badge">{english ? 'Out of stock' : 'Agotado'}</span>
-                  )}
-                </div>
-                <div className="info-container">
-                  <span className="cat-label">{producto.categoria_nombre} · {producto.marca_nombre}</span>
-                  <h4>{producto.nombre}</h4>
-                  <div className="price-row">
-                    <span className="price">{formatearMoneda(producto.precio)}</span>
-                    <button
-                      className="btn-cart"
-                      type="button"
-                      disabled={producto.estado === 'Agotado'}
-                      onClick={() => addToCart(aItemCarrito(producto))}
-                      aria-label={english ? `Add ${producto.nombre}` : `Agregar ${producto.nombre}`}
-                    >
-                      +
-                    </button>
+                <button
+                  type="button"
+                  className="product-detail-trigger"
+                  onClick={() => setProductoDetalle(producto)}
+                  aria-label={english ? `View details for ${producto.nombre}` : `Ver detalles de ${producto.nombre}`}
+                >
+                  <div className="img-container">
+                    <ImagenProducto key={producto.imagen} src={producto.imagen} alt={producto.nombre} />
+                    {producto.estado === 'Agotado' && (
+                      <span className="stock-badge">{english ? 'Out of stock' : 'Agotado'}</span>
+                    )}
                   </div>
+                  <div className="info-container">
+                    <span className="cat-label">{producto.categoria_nombre} · {producto.marca_nombre}</span>
+                    <h4>{producto.nombre}</h4>
+                  </div>
+                </button>
+                <div className="price-row product-card-actions">
+                  <span className="price">{formatearMoneda(producto.precio)}</span>
+                  <button
+                    className="btn-cart"
+                    type="button"
+                    disabled={producto.estado === 'Agotado'}
+                    onClick={() => addToCart(aItemCarrito(producto))}
+                    aria-label={english ? `Add ${producto.nombre}` : `Agregar ${producto.nombre}`}
+                  >
+                    +
+                  </button>
                 </div>
               </article>
             ))}
           </div>
         )}
       </main>
+      <dialog
+        ref={dialogoDetalle}
+        className="product-detail-dialog"
+        aria-labelledby="product-detail-title"
+        onClose={() => setProductoDetalle(null)}
+      >
+        {productoDetalle && (
+          <div className="product-detail-content">
+            <button
+              type="button"
+              className="catalog-dialog-close product-detail-close"
+              onClick={() => setProductoDetalle(null)}
+              aria-label={english ? 'Close product details' : 'Cerrar detalle del producto'}
+            >
+              ×
+            </button>
+            <div className="product-detail-layout">
+              <div className="product-detail-image">
+                <ImagenProducto src={productoDetalle.imagen} alt={productoDetalle.nombre} />
+              </div>
+              <div className="product-detail-copy">
+                <span className="cat-label">
+                  {productoDetalle.categoria_nombre} · {productoDetalle.marca_nombre}
+                </span>
+                <h2 id="product-detail-title">{productoDetalle.nombre}</h2>
+                <section>
+                  <h3>{english ? 'Product information' : 'Información general'}</h3>
+                  <p>{english ? 'Brand' : 'Marca'}: {productoDetalle.marca_nombre}</p>
+                  <p>{english ? 'Category' : 'Categoría'}: {productoDetalle.categoria_nombre}</p>
+                  <p>{english ? 'Price' : 'Precio'}: <strong>{formatearMoneda(productoDetalle.precio)}</strong></p>
+                  <p>{english ? 'Availability' : 'Disponibilidad'}: {productoDetalle.estado === 'Disponible'
+                    ? (english ? 'In stock' : 'Disponible')
+                    : (english ? 'Out of stock' : 'Agotado')}</p>
+                </section>
+                <section className="product-detail-benefits">
+                  <h3>{english ? 'Benefits' : 'Beneficios'}</h3>
+                  <p>{productoDetalle.descripcion}</p>
+                </section>
+                <button
+                  type="button"
+                  className="btn-primary product-detail-add"
+                  disabled={productoDetalle.estado === 'Agotado'}
+                  onClick={() => addToCart(aItemCarrito(productoDetalle))}
+                >
+                  {english ? 'Add to cart' : 'Agregar al carrito'}
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+      </dialog>
     </div>
   );
 };

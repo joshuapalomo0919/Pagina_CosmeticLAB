@@ -1,0 +1,29 @@
+[
+  {
+    "id_servicio": 1,
+    "nombre": "Moda",
+    "descripcion": "Maquillaje de moda para explorar tendencias, color y expresión.",
+    "precio": 120000,
+    "imagen": "",
+    "duracion": "90 minutos",
+    "estado": "Activo"
+  },
+  {
+    "id_servicio": 2,
+    "nombre": "Social",
+    "descripcion": "Maquillaje personalizado para ocasiones y eventos especiales.",
+    "precio": 180000,
+    "imagen": "",
+    "duracion": "120 minutos",
+    "estado": "Activo"
+  },
+  {
+    "id_servicio": 3,
+    "nombre": "Novia",
+    "descripcion": "Maquillaje armonioso y atemporal para el día de la boda.",
+    "precio": 350000,
+    "imagen": "",
+    "duracion": "180 minutos",
+    "estado": "Activo"
+  }
+]
